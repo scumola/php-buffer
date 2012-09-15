@@ -9,4 +9,4 @@ Then, run 'tweeter.php' and it'll take one tweet off the queue every hour during
 
 You can point your Google Reader urls at the submit.php url to auto-submit from Google Reader or any other reader that accepts urls.  An example url would be:
 
-http://hostname/submit.php?source=${source}&title=${title}&url=${url}&shorturl=${short-url}
+    http://hostname/submit.php?source=${source}&title=${title}&url=${url}&shorturl=${short-url}
