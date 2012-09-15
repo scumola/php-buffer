@@ -1,14 +1,11 @@
 #!/usr/bin/php
 <?php
-
 require_once(__DIR__ . '/amqp.inc');
 include(__DIR__ . '/config.php');
-
 $exchange = 'tweet_queue';
 $queue = 'tweets';
 $consumer_tag = 'consumer';
 $response="";
-
 $conn = new AMQPConnection(HOST, PORT, USER, PASS, VHOST);
 $ch = $conn->channel();
 $ch->queue_declare($queue, false, true, false, false);
@@ -30,7 +27,6 @@ function post_tweet($tweet_text) {
 	)); 
 
 	$connection->request('POST', $connection->url('1.1/statuses/update'), array('status' => $tweet_text));
-
 	$response = $connection->response['response'];
 	print ("Response: $response\n");
 	return $connection->response['code'];
@@ -48,7 +44,7 @@ function process_message($msg) {
 	if ($result == 200) {
 		$msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
 	} else {
-		mail('bigwebb@gmail.com', '[auto-tweeter FAILED] $tweet', "$result - $response");	
+#		mail('user@host.com', '[auto-tweeter FAILED] $tweet', "$result - $response");	
 		$msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
 	}
 
